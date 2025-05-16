@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENIA Digital - Redes Sociales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+      <link rel="icon" href="../logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .video-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      text-align: center;
+    }
+    h1 {
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .menu a {
+      padding: 1.2rem 2rem;
+      font-size: 1.1rem;
+      background-color: white;
+      border-radius: 10px;
+      color: #002f4b;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+    }
+    .menu a:hover {
+      transform: translateY(-6px) scale(1.05);
+      background-color: #00b4d8;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .menu {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+    <video class="video-bg" autoplay muted loop playsinline>
+        <source src="853844-hd_1920_1080_25fps.mp4" type="video/mp4">
+    </video>
+  <div class="overlay"></div>
+
+  <div class="centered">
+    <h1>ENIA Digital Market</h1>
+    <div class="menu">
+      <a href="Paginas redes socilales/instagram.html"><i class="fab fa-instagram"></i>Instagram</a>
+      <a href="Paginas redes socilales/x.html"><i class="fab fa-x-twitter"></i>X</a>
+      <a href="Paginas redes socilales/facebook.html"><i class="fab fa-facebook"></i>Facebook</a>
+      <a href="Paginas redes socilales/tiktok.html"><i class="fab fa-tiktok"></i>TikTok</a>
+    </div>
+  </div>
+</body>
+</html>
+

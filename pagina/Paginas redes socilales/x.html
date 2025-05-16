@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X Simulado</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="../x.png">
+  <style>
+    /* Reset y estilos básicos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica", "Arial", sans-serif;
+    }
+    body {
+      background-color: #e6ecf0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    /* Encabezado estilo X */
+    .header {
+      background-color: white;
+      width: 100%;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1DA1F2; /* Color característico, similar al azul de Twitter */
+    }
+    .header .search-bar input[type="text"] {
+      width: 100%;
+      max-width: 300px;
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+    }
+    /* Contenedor principal */
+    .main-content {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+    /* Contenedor del tweet */
+    .tweet {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease;
+    }
+    .tweet-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .tweet-header img {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .tweet-header .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .tweet-header .user-info .name {
+      font-weight: bold;
+      color: #14171A;
+    }
+    .tweet-header .user-info .handle {
+      font-size: 14px;
+      color: #657786;
+    }
+    .tweet-content {
+      font-size: 16px;
+      color: #14171A;
+      margin-bottom: 10px;
+    }
+    .tweet-image img {
+      width: 100%;
+      height: 0,1%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    /* Acciones del tweet */
+    .tweet-actions {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid #e1e8ed;
+      padding-top: 10px;
+      margin-bottom: 5px;
+    }
+    .tweet-actions div {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #657786;
+      transition: all 0.2s;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .tweet-actions div:hover {
+      background-color: #f5f8fa;
+    }
+    .tweet-actions div i {
+      margin-right: 5px;
+    }
+    /* Sección de comentarios */
+    .comments-section {
+      margin-top: 15px;
+      border-top: 1px solid #e1e8ed;
+      padding-top: 10px;
+    }
+    .comments-list {
+      list-style: none;
+      max-height: 150px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .comments-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+      color: #14171A;
+    }
+    .comment-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .comment-form img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+    .comment-form input[type="text"] {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+    }
+    .comment-form button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #1DA1F2;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .comment-form button:hover {
+      background-color: #0d95e8;
+    }
+    /* Animación de aparición */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Adaptabilidad para móviles */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header .search-bar {
+        margin-top: 10px;
+        width: 100%;
+      }
+      .main-content {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado estilo X -->
+  <div class="header">
+    <div class="logo">X</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar en X...">
+    </div>
+  </div>
+  
+  <!-- Contenedor principal -->
+  <div class="main-content">
+    <div class="tweet">
+      <!-- Encabezado del tweet -->
+      <div class="tweet-header">
+        <img src="../../logo.png" alt="Perfil">
+        <div class="user-info">
+          <span class="name">Enia</span>
+          <span class="handle">@Enia</span>
+        </div>
+      </div>
+      <!-- Contenido del tweet -->
+      <div class="tweet-content">
+        💡 La revolución digital está aquí. ¿Estás listo? 🚀 #ENIADigitalSolutions #InnovaciónDigital #Tecnología #TransformaciónEmpresarial #LideraElCambio
+      </div>
+      <!-- Imagen del tweet (opcional) -->
+      <div class="tweet-image">
+        <img src="post_x.png" alt="Imagen del tweet">
+      </div>
+      <!-- Acciones del tweet -->
+      <div class="tweet-actions">
+        <div onclick="replyTweet()">
+          <i class="fa-regular fa-comment"></i>
+          <span>Responder</span>
+        </div>
+        <div onclick="retweet(this)">
+          <i class="fa-solid fa-retweet"></i>
+          <span>Retweet</span>
+        </div>
+        <div onclick="likeTweet(this)">
+          <i class="fa-regular fa-heart"></i>
+          <span>Me gusta</span>
+        </div>
+        <div onclick="shareTweet()">
+          <i class="fa-solid fa-share"></i>
+          <span>Compartir</span>
+        </div>
+      </div>
+      <!-- Sección de comentarios -->
+      <div class="comments-section">
+        <ul class="comments-list" id="xCommentList"></ul>
+        <form class="comment-form" onsubmit="addXComment(event)">
+          <img src="../../logo.png" alt="Mi perfil">
+          <input type="text" id="xCommentInput" placeholder="Escribe un comentario..." required>
+          <button type="submit">Publicar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Función para simular respuesta
+    function replyTweet() {
+      alert("Función Responder activada!");
+    }
+    // Función para simular retweet
+    function retweet(element) {
+      alert("¡Retwitteado!");
+    }
+    // Función para simular 'me gusta'
+    function likeTweet(element) {
+      const icon = element.querySelector("i");
+      icon.classList.toggle("fa-solid");
+      icon.classList.toggle("fa-regular");
+      if(icon.classList.contains("fa-solid")){
+        element.style.color = "#e0245e";
+      } else {
+        element.style.color = "#657786";
+      }
+    }
+    // Función para simular compartir
+    function shareTweet() {
+      alert("¡Compartido en X!");
+    }
+    // Función para agregar un comentario
+    function addXComment(event) {
+      event.preventDefault();
+      const input = document.getElementById("xCommentInput");
+      const comment = input.value.trim();
+      if(comment) {
+        const li = document.createElement("li");
+        li.textContent = comment;
+        document.getElementById("xCommentList").appendChild(li);
+        input.value = "";
+      }
+    }
+  </script>
+</body>
+</html>

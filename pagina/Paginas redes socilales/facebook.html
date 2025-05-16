@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Simulado</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="../facebook.png">
+  <style>
+    /* Reset y estilos básicos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica", "Arial", sans-serif;
+    }
+    body {
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    /* Encabezado similar a Facebook */
+    .header {
+      background-color: #1877f2;
+      width: 100%;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      color: white;
+      flex-wrap: wrap;
+    }
+    .header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: 20px;
+    }
+    .header .search-bar {
+      flex-grow: 1;
+    }
+    .header input[type="text"] {
+      width: 100%;
+      max-width: 300px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 20px;
+    }
+    .header .header-icons {
+      margin-left: 20px;
+    }
+    .header .header-icons i {
+      margin-left: 15px;
+      cursor: pointer;
+      font-size: 20px;
+      transition: transform 0.3s;
+    }
+    .header .header-icons i:hover {
+      transform: scale(1.2);
+    }
+    /* Contenedor principal para la publicación */
+    .main-content {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px 0;
+      padding: 0 10px;
+    }
+    .post {
+      background-color: white;
+      border-radius: 8px;
+      margin: 15px 0;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s;
+    }
+    /* Encabezado de la publicación */
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .post-header img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .post-header .post-user {
+      font-size: 16px;
+      font-weight: bold;
+      color: #050505;
+    }
+    .post-time {
+      font-size: 12px;
+      color: #65676b;
+    }
+    /* Contenido y texto de la publicación */
+    .post-content {
+      margin: 10px 0;
+    }
+    .post-content p {
+      color: #050505;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    /* Imagen de la publicación */
+    .post-image {
+      margin-top: 10px;
+    }
+    .post-image img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    /* Acciones de la publicación */
+    .post-actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .post-actions div {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #65676b;
+      transition: background 0.3s, transform 0.2s;
+      padding: 5px;
+      border-radius: 4px;
+    }
+    .post-actions div:hover {
+      background-color: #f2f2f2;
+      transform: scale(1.05);
+    }
+    .post-actions i {
+      margin-right: 5px;
+    }
+    /* Sección de comentarios */
+    .comments-section {
+      margin-top: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .comments-section ul {
+      list-style: none;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .comments-section ul li {
+      font-size: 14px;
+      color: #050505;
+      padding: 5px 0;
+      border-bottom: 1px solid #f6f6f6;
+    }
+    .comment-form {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .comment-form img {
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+    .comment-form input[type="text"] {
+      flex-grow: 1;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+    }
+    .comment-form button {
+      margin-left: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      background-color: #1877f2;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .comment-form button:hover {
+      background-color: #0f5bb5;
+    }
+    /* Animación de aparición */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Adaptabilidad para móviles */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header .header-icons {
+        margin-left: 0;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado estilo Facebook -->
+  <div class="header">
+    <div class="logo">Facebook</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar en Facebook...">
+    </div>
+    <div class="header-icons">
+      <i class="fa-solid fa-house"></i>
+      <i class="fa-solid fa-user-friends"></i>
+      <i class="fa-solid fa-bell"></i>
+      <i class="fa-solid fa-comment-dots"></i>
+    </div>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="main-content">
+    <div class="post">
+      <!-- Encabezado de la publicación -->
+      <div class="post-header">
+        <img src="../../logo.png" alt="Perfil">
+        <div>
+          <div class="post-user">ENIA</div>
+          <div class="post-time">Hace 2 horas</div>
+        </div>
+      </div>
+      <!-- Contenido de la publicación -->
+      <div class="post-content">
+        <p>La transformación digital no es el futuro, es el presente 🔥💡</p>
+      </div>
+      <!-- Imagen incluida en la publicación -->
+      <div class="post-image">
+        <img src="post_Facebook.png" alt="Imagen del post" width="55%">
+      </div>
+      <!-- Acciones: Me gusta, Comentar y Compartir -->
+      <div class="post-actions">
+        <div onclick="toggleLike(this)">
+          <i class="fa-regular fa-thumbs-up"></i>
+          <span>Me gusta</span>
+        </div>
+        <div>
+          <i class="fa-regular fa-comment"></i>
+          <span>Comentar</span>
+        </div>
+        <div onclick="sharePost()">
+          <i class="fa-solid fa-share"></i>
+          <span>Compartir</span>
+        </div>
+      </div>
+      <!-- Sección de comentarios -->
+      <div class="comments-section">
+        <ul id="fbCommentList"></ul>
+        <form class="comment-form" onsubmit="addFBComment(event)">
+          <img src="../../logo.png" alt="Mi perfil">
+          <input type="text" id="fbCommentInput" placeholder="Escribe un comentario..." required>
+          <button type="submit">Publicar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Función para alternar "Me gusta"
+    function toggleLike(element) {
+      const icon = element.querySelector("i");
+      icon.classList.toggle("fa-solid");
+      icon.classList.toggle("fa-regular");
+      // Cambiar color si se activa el "me gusta"
+      if (icon.classList.contains("fa-solid")) {
+        element.style.color = "#1877f2";
+      } else {
+        element.style.color = "#65676b";
+      }
+    }
+
+    // Función simulada para el botón Compartir
+    function sharePost() {
+      alert("¡Compartido!");
+    }
+
+    // Función para agregar un comentario
+    function addFBComment(event) {
+      event.preventDefault();
+      const input = document.getElementById("fbCommentInput");
+      const comment = input.value.trim();
+      if (comment) {
+        const li = document.createElement("li");
+        li.textContent = comment;
+        document.getElementById("fbCommentList").appendChild(li);
+        input.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>

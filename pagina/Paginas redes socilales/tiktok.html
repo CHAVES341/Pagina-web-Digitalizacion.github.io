@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TikTok Simulacion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="../tik-tok.png">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: white;
+      overflow-x: hidden;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      max-width: 1200px;
+      margin: auto;
+      background: #111;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    /* Video Area */
+    .video-area {
+      flex: 0 0 550px;
+      position: relative;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Info over video */
+    .info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+    .info .username {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .info .description {
+      margin-top: 5px;
+      font-size: 15px;
+      max-width: 380px;
+      line-height: 1.2;
+    }
+    .info .music {
+      margin-top: 5px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+    }
+    .info .music i {
+      margin-right: 5px;
+    }
+    /* Actions vertical */
+    .actions {
+      position: absolute;
+      right: 15px;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 10;
+    }
+    .actions a {
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    .actions a:hover {
+      transform: scale(1.2);
+      color: #ff2d55;
+    }
+    .actions a:active {
+      transform: scale(0.9);
+      color: #00b4d8;
+    }
+    /* Volume slider on left */
+    .volume-slider {
+      position: absolute;
+      left: 15px;
+      bottom: 100px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+    }
+    .volume-slider.show {
+      display: flex;
+    }
+    .volume-slider input[type="range"] {
+      width: 100px;
+      height: 5px;
+      transform: rotate(-90deg);
+      cursor: pointer;
+    }
+    /* Comments panel */
+    .comments {
+      flex: 1;
+      background: #222;
+      padding: 20px;
+      overflow-y: auto;
+      color: #ddd;
+    }
+    .comments h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #eee;
+    }
+    .comments ul {
+      list-style: none;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin-bottom: 15px;
+    }
+    .comments li {
+      border-bottom: 1px solid #444;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    .comments form {
+      display: flex;
+      gap: 10px;
+    }
+    .comments input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      background: #333;
+      color: white;
+      font-size: 14px;
+    }
+    .comments input[type="text"]::placeholder {
+      color: #888;
+    }
+    .comments button {
+      background-color: #00b4d8;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .comments button:hover {
+      background-color: #009ac1;
+    }
+    /* Responsive for mobile */
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column;
+        height: 100vh;
+        border-radius: 0;
+        max-width: 100vw;
+      }
+      .video-area {
+        flex: none;
+        width: 100%;
+        height: 80vh;
+      }
+      .info .description {
+        max-width: 90vw;
+      }
+      .actions {
+        right: 10px;
+        bottom: 80px;
+        flex-direction: row;
+        gap: 15px;
+      }
+      .actions a {
+        font-size: 24px;
+      }
+      .volume-slider {
+        left: auto;
+        right: 10px;
+        bottom: 80px;
+        transform: rotate(0deg);
+        display: none;
+        flex-direction: row;
+        align-items: center;
+      }
+      .volume-slider.show {
+        display: flex;
+      }
+      .volume-slider input[type="range"] {
+        transform: rotate(0deg);
+        width: 120px;
+        height: 5px;
+      }
+      .comments {
+        flex: none;
+        width: 100%;
+        height: 40vh;
+        padding: 15px;
+      }
+      .comments ul {
+        max-height: 20vh;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="video-area">
+      <video id="mainVideo" autoplay muted loop playsinline>
+        <source src="../tiktok video .mp4" type="video/mp4" />
+      </video>
+  
+      <!-- Botón para activar el sonido -->
+      <button onclick="activarSonido()" id="activarSonidoBtn"
+          style="position:absolute; top:20px; left:20px; z-index:1000; background:#fff; color:#000; padding:8px 12px; border:none; border-radius:8px; cursor:pointer;">
+          🔊 Activar sonido
+      </button>
+      <div class="info">
+        <div class="username">@ENIA_market</div>
+        <div class="description">Consultora especializada en transformación digital. 🚀 #DigitalStyle #ENIA</div>
+        <div class="music"><i class="fa-solid fa-music"></i> Sonido original - ENIA Beats</div>
+      </div>
+      <div class="actions">
+        <a href="javascript:void(0);" onclick="toggleLike(this)"><i class="fa-regular fa-heart"></i></a>
+        <a href="javascript:void(0);" onclick="toggleComments()"><i class="fa-regular fa-comment"></i></a>
+        <a href="javascript:void(0);" onclick="shareAction()"><i class="fa-solid fa-share"></i></a>
+        <a href="javascript:void(0);" onclick="toggleVolumeSlider()"><i class="fa-solid fa-volume-high"></i></a>
+      </div>
+      <div class="volume-slider" id="volumeSliderContainer">
+        <input type="range" id="volumeSlider" min="0" max="100" value="50" />
+      </div>
+    </div>
+    <div class="comments">
+      <h2>Comentarios</h2>
+      <ul id="commentsList">
+        <li>¡Me encanta el diseño minimalista!</li>
+        <li>Que locura</li>
+      </ul>
+      <form onsubmit="addComment(event)">
+        <input type="text" id="commentInput" placeholder="Escribe un comentario..." required />
+        <button type="submit">Publicar</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+  const video = document.getElementById('mainVideo');
+  const volSlider = document.getElementById('volumeSlider');
+  const volContainer = document.getElementById('volumeSliderContainer');
+  const commentsList = document.getElementById('commentsList');
+  const commentInput = document.getElementById('commentInput');
+
+  video.volume = volSlider.value / 100;
+
+  volSlider.addEventListener('input', () => {
+    video.volume = volSlider.value / 100;
+    video.muted = volSlider.value === "0";
+  });
+
+  function toggleLike(elem) {
+    const icon = elem.querySelector('i');
+    icon.classList.toggle('fa-solid');
+    icon.classList.toggle('fa-regular');
+    icon.style.color = icon.classList.contains('fa-solid') ? '#ff2d55' : 'white';
+  }
+
+  function shareAction() {
+    alert('Función de compartir en desarrollo.');
+  }
+
+  function toggleVolumeSlider() {
+    volContainer.classList.toggle('show');
+  }
+
+  function toggleComments() {
+    // Simple toggle for future expansion, here comments always visible on desktop, on mobile maybe you want to add toggle behavior
+    // For now no hide/show to keep simple
+  }
+
+  function addComment(event) {
+    event.preventDefault();
+    const text = commentInput.value.trim();
+    if (text) {
+      const li = document.createElement('li');
+      li.textContent = text;
+      commentsList.appendChild(li);
+      commentInput.value = '';
+    }
+  }
+
+  function activarSonido() {
+  const video = document.getElementById('mainVideo');
+  video.muted = false;
+  video.volume = 1.0;
+  video.play();
+  document.getElementById('activarSonidoBtn').style.display = 'none';
+}
+</script>
+</body>
+</html>
